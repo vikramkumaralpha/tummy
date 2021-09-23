@@ -1,0 +1,111 @@
+<br>
+<br>
+<br>
+<div class="row justify-content-center">
+  <form class="form" [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="card border-secondary register-card">
+      <div class="card-header text-white bg-info">
+        <div class="text-center font-weight-bold">Register as User</div>
+      </div>
+
+      <div class="card-body">
+        <div class="form-group">
+          <label *ngIf="registerForm.controls.userName.value" for="userName">Username</label>
+          <input class="form-control" formControlName="userName" placeholder="User Name" id="userName"
+            (blur)="checkUserNameAvailability()" />
+          <div *ngIf="!usernameAvailable && userChecked">
+            <strong class="text-danger">User name is not available!!</strong>
+          </div>
+          <div *ngIf="usernameAvailable && userChecked">
+            <strong class="text-success">User name is available!!</strong>
+          </div>
+          <div *ngIf="registerForm.controls.userName.invalid  && registerForm.controls.userName.touched">
+
+            <div *ngIf="registerForm.controls.userName.hasError('required')">
+              <strong class="text-danger">User name is Mandatory</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="registerForm.controls.password.value" for="Password">Password</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Password" id="password" />
+          <div *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched">
+
+            <div *ngIf="registerForm.controls.password.hasError('required')">
+              <strong class="text-danger">Password is Mandatory</strong>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label *ngIf="registerForm.controls.confirmPassword.value" for="Password"> Confirm Password</label>
+          <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password"
+            id="confirmPassword" />
+          <div *ngIf="registerForm.controls.confirmPassword.invalid && registerForm.controls.confirmPassword.touched">
+            <div *ngIf="registerForm.controls.confirmPassword.hasError('required')">
+              <strong class="text-danger">Please re-enter your password.</strong>
+            </div>
+          </div>
+          <div
+            *ngIf="(registerForm.controls.confirmPassword.touched || registerForm.controls.confirmPassword.dirty) && registerForm.errors?.passwordMismatch">
+            <strong class="text-danger">Passwords do not match</strong>
+          </div>
+        </div>
+        <div class="form-group">
+          <label *ngIf="registerForm.controls.age.value" for="age">Age</label>
+          <input type="age" class="form-control" formControlName="age" placeholder="Age" id="age" />
+          <div *ngIf="registerForm.controls.age.invalid && registerForm.controls.age.touched">
+
+            <div *ngIf="registerForm.controls.age.hasError('required')">
+              <strong class="text-danger">Please enter you age.</strong>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label *ngIf="registerForm.controls.salary.value" for="salary">Salary</label>
+          <input type="salary" class="form-control" formControlName="salary" placeholder="Salary" id="salary" />
+          <div *ngIf="registerForm.controls.salary.invalid && registerForm.controls.salary.touched">
+
+            <div *ngIf="registerForm.controls.salary.hasError('required')">
+              <strong class="text-danger">Please enter your salary</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-auto offset-1">
+            <button id="myId" class="btn btn-primary" [disabled]="!registerForm.valid" data-toggle="modal"
+              data-target="#exampleModalCenter">Register</button>
+          </div>
+          <div class="col-auto  offset-1">
+            <button type="reset" class="btn btn-warning">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<br>
+<br>
+<div class="row justify-content-center">
+  <div *ngIf="isTryingToRegister" class="justify-content-center">
+    <span class="text-info font-weight-bold border border-warning rounded">
+      Registration in process.Please wait!!
+    </span>
+  </div>
+</div>
+<br>
+<div class="row justify-content-center">
+  <div *ngIf="errorMessage" class="row justify-content-center">
+    <span class="text-danger font-weight-bold" *ngIf="errorMessage">{{errorMessage}}</span>
+  </div>
+  <div *ngIf="successMessage" class="row justify-content-center">
+    <span class="text-success font-weight-bold border border-info rounded" *ngIf="successMessage">{{successMessage}}
+    </span>
+  </div>
+</div>
+<br>
+<br>
+<br>

@@ -1,0 +1,61 @@
+<br>
+<br>
+<br>
+<div class="row justify-content-center">
+  <!-- <div class="col-md-4"> -->
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="card border-secondary w-100">
+      <div class="card-header text-white bg-info">
+        <div class="text-center font-weight-bold">Login</div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label *ngIf="loginForm.controls.username.value" for="username">Username</label>
+          <input class="form-control" formControlName="username" placeholder="User Name" id="username" />
+          <div *ngIf="loginForm.controls.username.invalid  && loginForm.controls.username.touched">
+
+            <div *ngIf="loginForm.controls.username.hasError('required')">
+              <strong class="text-danger">User name is Mandatory</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label *ngIf="loginForm.controls.password.value" for="Password">Password</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Password" id="password" />
+          <div *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+
+            <div *ngIf="loginForm.controls.password.hasError('required')">
+              <strong class="text-danger">Password is Mandatory</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-auto offset-1">
+            <button class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+          </div>
+          <div class="col-auto offset-1">
+            <button type="reset" class="btn btn-warning" [disabled]="loginForm.pristine">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- </div> -->
+</div>
+<br>
+<br>
+<div *ngIf="isTryingToLogin" class="row justify-content-center">
+  <div class="justify-content-center">
+    <span class="text-primary font-weight-bold border border-info rounded">
+      Please wait while we log you in the application!!
+    </span>
+  </div>
+</div>
+<br>
+<div *ngIf="errorMessage" class="row justify-content-center">
+  <span class="text-danger font-weight-bold" *ngIf="errorMessage">{{errorMessage}}</span>
+</div>
